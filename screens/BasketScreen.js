@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { XCircleIcon } from "react-native-heroicons/solid";
 import { urlFor } from "../sanity";
 import Currency from "react-currency-formatter";
+import { initPaymentSheet, usePaymentSheet } from "@stripe/stripe-react-native";
 
 const BasketScreen = () => {
   const navigation = useNavigation();
@@ -20,6 +21,34 @@ const BasketScreen = () => {
   const items = useSelector(selectBasketItem);
   const [groupedItems, setGroupedItems] = useState([]);
   const dispatch = useDispatch();
+
+  const [ready, setReady] = useState(false);
+  const { initPaymentSheet, presentPaymentSheet, loading } = usePaymentSheet();
+
+  useEffect(() => {
+    initializePaymentSheet();
+  }, []);
+
+  const initializePaymentSheet = async () => {
+    const { paymentIntent, ephemeralKey, customer } =
+      await fetchPaymentSheetParams();
+
+    const { error } = await initPaymentSheet({
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      merchantDisplayName: "Sam Food Delivery",
+      allowsDelayedPaymentMethods: true,
+      returnURL: "stripe-example://stripe-redirect",
+    });
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      setReady(true);
+    }
+  };
+
   // avoid recomputing if the value of items didn't change
   useMemo(() => {
     const groupedItems = items.reduce((results, item) => {
@@ -29,6 +58,18 @@ const BasketScreen = () => {
 
     setGroupedItems(groupedItems);
   }, [items]);
+
+  async function buy() {
+    const { error } = await presentPaymentSheet();
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      Alert.alert("Success", "Your order is confirmed!");
+      navigation.navigate("PreparingOrderScreen");
+    }
+  }
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 bg-gray-100">
