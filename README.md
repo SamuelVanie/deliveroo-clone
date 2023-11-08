@@ -1,16 +1,17 @@
 # deliveroo-clone
-A deliveroo app clone with REACT NATIVE
+A deliveroo app clone with REACT NATIVE.
+Check out the demo file in the *demo* folder
 
 ## Sanity
 
 Sanity constitues here the backend server. It's a CMS which provides user friendly interface for the client to add directly the data they wish to the WEBSITE.
-Checkout the Sanity page : [[https://www.sanity.io/]]
+Checkout the Sanity page : [Sanity](https://www.sanity.io/)
 
 In this project the sanity backend is in the folder sanity-deliveroo-clone. To launch it, run the command : `npx sanity dev`
 
 ## REACT NATIVE
 
-React Native is a popular JS framework used to build hybrid mobile app. Checkout info on [[https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjd3qqN35z_AhXMT6QEHdZCDkwQFnoECA8QAQ&url=https%3A%2F%2Freactnative.dev%2F&usg=AOvVaw3N725EvNXK2_crezzoIs9d]]
+React Native is a popular JS framework used to build hybrid mobile app. Checkout info on [React Native](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjd3qqN35z_AhXMT6QEHdZCDkwQFnoECA8QAQ&url=https%3A%2F%2Freactnative.dev%2F&usg=AOvVaw3N725EvNXK2_crezzoIs9d)
 
 To run the react native app you will need expo, just run the command `npm install` in the project root folder to install all the dependencies. Then run the project with `npm start` or `npx expo start`
 
